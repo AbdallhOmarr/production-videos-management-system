@@ -10,11 +10,30 @@ import os
 def home(request):
     return render(request,"home.html")
 
+import re
 
-def process_video(video_file,request_data):
-    print()
+def validate_filename(filename):
+    # Define the regex pattern for valid filename characters
+    pattern = r"^[a-zA-Z0-9_\-.]{1,255}$"
+
+    # Check if the filename matches the pattern
+    if re.match(pattern, filename):
+        return True
+    else:
+        return False
+
+def sanitize_filename(filename):
+    invalid_chars = r"[^\w\.-]"
+
+    # Replace invalid characters with underscores
+    sanitized_filename = re.sub(invalid_chars, "_", filename)
+    return sanitized_filename
+
+def process_video(video_file,post_data):
+    request_data = dict(post_data)
     # Define the temporary directory within MEDIA_ROOT
     temp_dir = os.path.join(settings.MEDIA_ROOT, 'temp')
+    videos_dir=  os.path.join(settings.MEDIA_ROOT, 'videos')
 
     # Create the temporary directory if it doesn't exist
     os.makedirs(temp_dir, exist_ok=True)
@@ -33,13 +52,41 @@ def process_video(video_file,request_data):
     fps = cap.get(cv2.CAP_PROP_FPS)
 
     # Define the codec and create a VideoWriter object
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')    
     
-    file_name = request_data['product_code'] + "_"  + request_data['product_description'] + "_" + request_data['factory'] + "_" + request_data['operation_code'] + "_" + request_data['operation_description'] + "_" + request_data['machine_number'] + "_" + request_data['machine_description'] 
-    out_path = os.path.splitext(file_path)[0] + '_resized.avi'
     
-    out = cv2.VideoWriter(out_path, fourcc, fps, (640, int(640 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT) / cap.get(cv2.CAP_PROP_FRAME_WIDTH))))
+    # List of keys you want to remove
+    keys_to_remove = ['csrfmiddlewaretoken']
 
+    # Remove the specified keys from the QueryDict
+    for key in keys_to_remove:
+        request_data.pop(key, None)
+
+    # Initialize an empty list to store non-empty values
+    valid_values = []
+
+    # Loop through the values and filter out empty, None, or ""
+    for value in request_data.values():
+        if value is not None and value != "":
+            if type(value) == type([]):
+                value = value[0]
+            valid_values.append(value)
+
+    # Create the file_name by joining the valid values with "_"
+    file_name = "_".join(valid_values)   
+    file_name = file_name + ".mp4"  
+    # Validate the filename
+    # if validate_filename(file_name):
+    #     # Sanitize the filename
+    #     sanitized_filename = sanitize_filename(file_name)
+    #     file_name = sanitized_filename + ".mp4"
+    # else:
+    #     # Handle invalid filename error
+    #     print("Invalid filename provided")
+
+    out_path = os.path.join(videos_dir, file_name)
+    
+    out = cv2.VideoWriter(out_path, fourcc, fps, (480, int(480 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT) / cap.get(cv2.CAP_PROP_FRAME_WIDTH))))
     # Read and resize each frame
     while True:
         ret, frame = cap.read()
