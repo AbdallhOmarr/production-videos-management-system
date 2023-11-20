@@ -1,0 +1,14 @@
+{"emmet.includeLanguages": {
+    "django-html": "html"
+},
+"emmet.triggerExpansionOnTab": true,
+"files.associations": {
+    "**/*.html": "django-html"
+},
+"editor.formatOnSave": true,
+"editor.defaultFormatter": "esbenp.prettier-django",
+"editor.formatOnSave": true,
+"editor.defaultFormatter": "ms-python.python",
+"python.formatting.provider": "black",
+
+}

@@ -1,0 +1,256 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <h2>Video Upload form</h2>
+    </div>
+
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Product Code</h6>
+              <small class="text-body-secondary"></small>
+            </div>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Product Desc.</h6>
+              <small class="text-body-secondary"></small>
+            </div>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Operation Code</h6>
+              <small class="text-body-secondary"></small>
+            </div>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Operation Desc.</h6>
+              <small class="text-body-secondary"></small>
+            </div>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Machine Code</h6>
+              <small class="text-body-secondary"></small>
+            </div>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Machine Desc.</h6>
+              <small class="text-body-secondary"></small>
+            </div>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Operator Code</h6>
+              <small class="text-body-secondary"></small>
+            </div>
+          </li>
+
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Operator Name</h6>
+              <small class="text-body-secondary"></small>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      {% comment %} Form details {% endcomment %}
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Details</h4>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Select video</label>
+              <input
+                class="form-control"
+                type="file"
+                id="formFile"
+                accept="video/*"
+                name="video_file"
+                required
+              />
+            </div>
+
+            <div class="col-sm-3">
+              <label for="productCode" class="form-label">Product Code</label>
+              <input
+                type="text"
+                class="form-control"
+                id="productCode"
+                placeholder=""
+                value=""
+                name="product_code"
+                required
+              />
+              <div class="invalid-feedback">
+                Valid Product Code is required.
+              </div>
+            </div>
+
+            <div class="col-sm-9">
+              <label for="productDescription" class="form-label"
+                >Product Description</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="productDescription"
+                placeholder=""
+                value=""
+                name="product_description"
+                required
+              />
+              <div class="invalid-feedback">
+                Valid Product Description is required.
+              </div>
+            </div>
+            <div class="col-lg-15">
+              <label for="factory" class="form-label">Factory</label>
+              <input
+                type="text"
+                class="form-control"
+                id="factory"
+                placeholder=""
+                value=""
+                name="factory"
+                required
+              />
+              <div class="invalid-feedback">Valid factory is required.</div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="operationCode" class="form-label"
+                >Operation Code</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="operationCode"
+                placeholder=""
+                value=""
+                name="operation_code"
+              />
+              <div class="invalid-feedback">
+                Valid Operation Code is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="operationDescription" class="form-label"
+                >Operation Description</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="operationDescription"
+                placeholder=""
+                value=""
+                name="operation_description"
+                required
+              />
+              <div class="invalid-feedback">
+                Valid Operation Description is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="machineNumber" class="form-label"
+                >Machine Number</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="machineNumber"
+                placeholder=""
+                value=""
+                name="machine_number"
+              />
+              <div class="invalid-feedback">
+                Valid Machine Number is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="machineDescription" class="form-label"
+                >Machine Description</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="machineDescription"
+                placeholder=""
+                value=""
+                name="machine_description"
+                required
+              />
+              <div class="invalid-feedback">
+                Valid Machine Description is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="operatorCode" class="form-label">Operator Code</label>
+              <input
+                type="text"
+                class="form-control"
+                id="operatorCode"
+                placeholder=""
+                value=""
+                name="operator_code"
+              />
+              <div class="invalid-feedback">
+                Valid Operator Code is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="operatorName" class="form-label">Operator Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="operatorName"
+                placeholder=""
+                value=""
+                name="operator_name"
+              />
+              <div class="invalid-feedback">
+                Valid Operator Name is required.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="additionalDetails" class="form-label"
+                >Additional Details</label
+              >
+              <textarea
+                class="form-control"
+                id="additionalDetails"
+                name="additional_details"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <button class="w-100 btn btn-dark btn-lg" type="submit">
+            Save to database
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock content %}

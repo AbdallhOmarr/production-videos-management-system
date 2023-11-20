@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block title %} Production Video Management
+{%endblock title %} {% block content %}
+
+<div class="container my-5">
+  <div class="p-5 text-center bg-body-tertiary rounded-3">
+    <svg
+      class="bi mt-4 mb-3"
+      style="color: var(--bs-indigo)"
+      width="100"
+      height="100"
+    >
+      <use xlink:href="#bootstrap" />
+    </svg>
+    <h1 class="text-body-emphasis">Production's Video Management</h1>
+    <p class="col-lg-8 mx-auto fs-5 text-muted">
+      Welcome to our video production management platform. Streamline your
+      production processes by uploading, encoding, and storing videos
+      effortlessly. Take control of your video assets with our intuitive and
+      efficient tools. Our organized system will enable you to enhance data
+      collection and ultimately find improvements easily.
+    </p>
+    <div class="d-inline-flex gap-2 mb-5">
+      <a
+        href="#"
+        class="d-inline-flex align-items-center btn btn-dark btn-lg px-4 rounded-pill"
+      >
+        Upload New Video
+        <svg class="bi ms-2" width="24" height="24">
+          <use xlink:href="#arrow-up-circle" />
+        </svg>
+      </a>
+      <a href="#" class="btn btn-outline-secondary btn-lg px-4 rounded-pill">
+        Explore Video Library
+        <svg class="bi ms-2" width="24" height="24">
+          <use xlink:href="#play-circle" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="b-example-divider"></div>
+{% endblock content %}
