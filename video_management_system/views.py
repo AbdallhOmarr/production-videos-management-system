@@ -15,12 +15,8 @@ def home(request):
 
 
 
+
 def upload_videos(request):
-    process_video_task.delay
-    return render(request, "upload_video.html")
-
-
-def upload_videos2(request):
     if request.method == 'POST':
         form = VideoForm(request.POST, request.FILES)
         if form.is_valid():
@@ -39,9 +35,9 @@ def upload_videos2(request):
             # Process the video asynchronously with Celery
             process_video_task.delay(file_path, request.POST)
 
-            # Save the processed video to the model instance
-            video_instance.video_file = video_file
-            video_instance.save()
+            # # Save the processed video to the model instance
+            # video_instance.video_file = video_file
+            # video_instance.save()
 
 
             return redirect('upload')  # Redirect to a success page

@@ -6,17 +6,11 @@ import cv2
 import logging
 from base.celery import app
 
-@shared_task
-def process_video_task(file_path, post_data):
-    print("task started")
-    return None
-
-
+logger = logging.getLogger(__name__)
 
 
 @app.task
-def process_video_task2(file_path, post_data):
-    print("task started")
+def process_video_task(file_path, post_data):
     try:
         logger.info("Task started")
         request_data = dict(post_data)
@@ -61,14 +55,14 @@ def process_video_task2(file_path, post_data):
 
         out_path = os.path.join(videos_dir, file_name)
         
-        out = cv2.VideoWriter(out_path, fourcc, fps, (640, int(640 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT) / cap.get(cv2.CAP_PROP_FRAME_WIDTH))))
+        out = cv2.VideoWriter(out_path, fourcc, fps, (480, int(480 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT) / cap.get(cv2.CAP_PROP_FRAME_WIDTH))))
         # Read and resize each frame
         while True:
             ret, frame = cap.read()
             if not ret:
                 break
 
-            resized_frame = cv2.resize(frame, (640, int(640 * frame.shape[0] / frame.shape[1])))
+            resized_frame = cv2.resize(frame, (480, int(480 * frame.shape[0] / frame.shape[1])))
             out.write(resized_frame)
 
         # Release video capture and writer objects
@@ -76,13 +70,13 @@ def process_video_task2(file_path, post_data):
         out.release()
         # You can perform additional processing here before saving to the database
 
-        # Remove the temporary file after processing
-        os.remove(file_path)
 
     except Exception as e :
         logger.error(f"Error processing video: {str(e)}")
         raise e
     
     finally:
+        logger.info("Task Completed")
+
         # Always remove the temporary file after processing, even if there's an error
         os.remove(file_path)

@@ -12,7 +12,8 @@ app = Celery('base')
 # - namespace='CELERY' means all celery-related configuration keys
 #   should have a `CELERY_` prefix.
 app.config_from_object('django.conf:settings', namespace='CELERY')
-
+# Use Eventlet as the concurrency pool for Celery worker
+app.conf.worker_pool = 'eventlet'
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 # Celery configuration settings
