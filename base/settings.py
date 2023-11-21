@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "video_management_system"
+    "video_management_system",
 ]
 
 MIDDLEWARE = [
@@ -127,3 +127,32 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# CELERY_BROKER_URL = 'redis://default:p1euV9KP2TiuomRDtoc1CDxVue7LTw8N@redis-19318.c321.us-east-1-2.ec2.cloud.redislabs.com:19318/0'
+
+CELERY_BROKER_URL = "redis://default:1mbKdKMEapb43GapGhl53e6lAfjBHikE@roundhouse.proxy.rlwy.net:37910"
+
+CELERY_IMPORTS = ('video_management_system.tasks',)
+
+
+
+# settings.py
+# settings.py
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'logfile.log',
+        },
+    },
+    'loggers': {
+        'video_management_system': {
+            'handlers': ['file'],
+            'level': 'INFO',  # Change this line to 'INFO'
+        },
+    },
+}
