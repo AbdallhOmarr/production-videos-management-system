@@ -68,7 +68,7 @@
       {% comment %} Form details {% endcomment %}
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">Details</h4>
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="upload-form">
           {% csrf_token %}
           <div class="row g-3">
             <div class="mb-3">
@@ -269,4 +269,43 @@
     </div>
   </main>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  console.log("script started");
+  $(document).ready(function () {
+    $("#upload-btn").on("click", function () {
+      event.preventDefault(); // Prevent the default form submission
+      var formData = new FormData($("#upload-form")[0]);
+
+      $.ajax({
+        type: "POST",
+        url: "{% url 'upload' %}",
+        data: formData,
+        processData: false,
+        contentType: false,
+        xhr: function () {
+          var xhr = new window.XMLHttpRequest();
+          xhr.upload.addEventListener("progress", function (e) {
+            if (e.lengthComputable) {
+              var percent = (e.loaded / e.total) * 100;
+              $("#progress-bar").width(percent + "%");
+              $("#progress-bar").attr("aria-valuenow", percent);
+            }
+          });
+          return xhr;
+        },
+        success: function (data) {
+          // Handle success, e.g., redirect to a success page
+          window.location.href = "{% url 'upload' %}";
+        },
+        error: function (data) {
+          // Handle error
+          console.log("Error:", data);
+        },
+      });
+    });
+  });
+</script>
+
 {% endblock content %}
