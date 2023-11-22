@@ -10,3 +10,17 @@
     font-size: 13px; /* Adjust the font size as needed */
     min-width: 200px;
 }
+
+
+.table-videos{
+    min-height: 400px;
+}
+
+
+
+
+/* cover  */
+.cover-con{
+    margin-top: 50px;
+    max-width: 360px;
+}

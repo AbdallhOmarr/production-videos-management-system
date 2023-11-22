@@ -1,1 +1,1 @@
-celery -A your_project_name worker -l info -P eventlet
+celery -A base worker -l info -P eventlet
