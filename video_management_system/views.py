@@ -32,12 +32,10 @@ def upload_videos(request):
                 for chunk in video_file.chunks():
                     destination.write(chunk)
 
+            video_instance.video_file = None
+            video_instance.save()
             # Process the video asynchronously with Celery
-            process_video_task.delay(file_path, request.POST)
-
-            # # Save the processed video to the model instance
-            # video_instance.video_file = video_file
-            # video_instance.save()
+            process_video_task.delay(file_path, request.POST,video_instance.id)
 
 
             return redirect('upload')  # Redirect to a success page

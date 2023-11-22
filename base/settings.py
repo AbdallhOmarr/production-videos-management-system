@@ -129,9 +129,9 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# CELERY_BROKER_URL = 'redis://default:p1euV9KP2TiuomRDtoc1CDxVue7LTw8N@redis-19318.c321.us-east-1-2.ec2.cloud.redislabs.com:19318/0'
+CELERY_BROKER_URL = 'redis://default:p1euV9KP2TiuomRDtoc1CDxVue7LTw8N@redis-19318.c321.us-east-1-2.ec2.cloud.redislabs.com:19318/0'
 
-CELERY_BROKER_URL = "redis://default:1mbKdKMEapb43GapGhl53e6lAfjBHikE@roundhouse.proxy.rlwy.net:37910"
+# CELERY_BROKER_URL = "redis://default:1mbKdKMEapb43GapGhl53e6lAfjBHikE@roundhouse.proxy.rlwy.net:37910"
 
 CELERY_IMPORTS = ('video_management_system.tasks',)
 

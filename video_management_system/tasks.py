@@ -5,12 +5,12 @@ import os
 import cv2
 import logging
 from base.celery import app
-
+from .models import Video
 logger = logging.getLogger(__name__)
 
 
 @app.task
-def process_video_task(file_path, post_data):
+def process_video_task(file_path, post_data,video_id):
     try:
         logger.info("Task started")
         request_data = dict(post_data)
@@ -70,9 +70,16 @@ def process_video_task(file_path, post_data):
         out.release()
         # You can perform additional processing here before saving to the database
 
+        video_instance = Video.objects.get(id=video_id)
+        video_instance.video_file = out_path
+        video_instance.save()
+        
 
     except Exception as e :
         logger.error(f"Error processing video: {str(e)}")
+        # delete the video obj from database 
+        video_instance = Video.objects.get(id=video_id)
+        video_instance.delete()
         raise e
     
     finally:

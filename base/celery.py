@@ -13,7 +13,16 @@ app = Celery('base')
 #   should have a `CELERY_` prefix.
 app.config_from_object('django.conf:settings', namespace='CELERY')
 # Use Eventlet as the concurrency pool for Celery worker
-app.conf.worker_pool = 'eventlet'
+# app.conf.worker_pool = 'eventlet'
+
+# Use Eventlet as the concurrency library
+app.conf.update(
+    worker_pool='solo',
+    task_always_eager=False ,  # Set to False for production
+    worker_concurrency=3,  # Adjust the concurrency level as needed
+)
+
+
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 # Celery configuration settings
