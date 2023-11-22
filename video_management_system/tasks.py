@@ -6,8 +6,29 @@ import cv2
 import logging
 from base.celery import app
 from .models import Video
+
+
+import os
+import re
+
+
 logger = logging.getLogger(__name__)
 
+## tasks related functions ax
+
+def clean_file_name(filename):
+        # Check for invalid characters in filename
+    invalid_characters = re.compile(r'[\\/?*<>:"|]')
+    if invalid_characters.search(filename):
+        logger.error("Filename '{}' contains invalid characters".format(filename))
+
+    # Sanitize filename by removing invalid characters
+    cleaned_filename = re.sub(invalid_characters, '', filename)
+    logger.info(f"Filename cleaned '{cleaned_filename}'")
+
+    return cleaned_filename    
+    
+## tasks 
 
 @app.task
 def process_video_task(file_path, post_data,video_id):
@@ -52,9 +73,12 @@ def process_video_task(file_path, post_data,video_id):
         file_name = "_".join(valid_values)   
         file_name = file_name + ".mp4"  
         # Validate the filename
-
-        out_path = os.path.join(videos_dir, file_name)
+        file_name = clean_file_name(file_name)
         
+        
+        out_path = os.path.join(videos_dir, file_name)
+        logger.info(f"Video out path:{out_path}")
+
         out = cv2.VideoWriter(out_path, fourcc, fps, (480, int(480 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT) / cap.get(cv2.CAP_PROP_FRAME_WIDTH))))
         # Read and resize each frame
         while True:
@@ -83,7 +107,9 @@ def process_video_task(file_path, post_data,video_id):
         raise e
     
     finally:
+        
+        try:
+            os.remove(file_path)
+        except:
+            logger.info("processing completed but temp failed to delete")
         logger.info("Task Completed")
-
-        # Always remove the temporary file after processing, even if there's an error
-        os.remove(file_path)
