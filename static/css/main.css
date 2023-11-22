@@ -4,3 +4,9 @@
 
 }
 
+
+
+.header-cell{
+    font-size: 13px; /* Adjust the font size as needed */
+    min-width: 200px;
+}

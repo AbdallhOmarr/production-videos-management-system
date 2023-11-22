@@ -20,4 +20,8 @@ from . import views
 urlpatterns = [
     path("", views.home, name="home"),
     path("upload",views.upload_videos,name='upload'),
+    path("search",views.search_videos,name='search'),
+    path("about",views.about,name='about'),
+
+
 ]

@@ -31,7 +31,7 @@ if __name__ == "__main__":
     try:
         print("Watchdog is running. Press Ctrl+C to stop.")
         while True:
-            time.sleep(1)
+            time.sleep(3)
     except KeyboardInterrupt:
         observer.stop()
 

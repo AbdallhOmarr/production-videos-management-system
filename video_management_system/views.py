@@ -7,7 +7,7 @@ import os
 
 from .tasks import process_video_task
 
-
+from .models import Video
 
 # Create your views here.
 def home(request):
@@ -28,6 +28,7 @@ def upload_videos(request):
             os.makedirs(temp_dir, exist_ok=True)
             file_path = os.path.join(temp_dir, video_file.name)
             
+            
             with open(file_path, 'wb') as destination:
                 for chunk in video_file.chunks():
                     destination.write(chunk)
@@ -41,3 +42,18 @@ def upload_videos(request):
             return redirect('upload')  # Redirect to a success page
 
     return render(request, "upload_video.html")
+
+
+
+def search_videos(request):
+    videos = Video.objects.all()
+    
+    context = {
+        'videos': videos,
+    }
+
+    return render(request, 'search.html', context)
+
+
+def about(request):
+    return render(request,"about.html")

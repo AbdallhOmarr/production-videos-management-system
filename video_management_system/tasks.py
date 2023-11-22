@@ -36,8 +36,8 @@ def process_video_task(file_path, post_data,video_id):
         logger.info("Task started")
         request_data = dict(post_data)
         # Define the directory within MEDIA_ROOT
-        videos_dir=  os.path.join(settings.MEDIA_ROOT, 'videos')
-
+        # videos_dir=  os.path.join(settings.MEDIA_ROOT, 'videos')
+        videos_dir = r"\\Qnap02\Process\VIDEOS\VIDEOS\web_interface"
         # Create the temporary directory if it doesn't exist
         os.makedirs(videos_dir, exist_ok=True)
 
