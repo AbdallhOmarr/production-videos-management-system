@@ -3,38 +3,61 @@
 <div class="container">
   <div class="d-flex flex-column my-5">
     <div class="input-group my-3">
-      <input
-        type="search"
-        class="form-control rounded mx-1"
-        placeholder="Search"
-        aria-label="Search"
-        aria-describedby="search-addon"
-      />
-      <button
-        type="button"
-        class="btn btn-outline-dark mx-1"
-        data-mdb-ripple-init
+      <form
+        class="input-group my-3"
+        method="post"
+        enctype="multipart/form-data"
+        id="search-form"
       >
-        search
-      </button>
+        {% csrf_token %}
+        <input
+          type="search"
+          class="form-control rounded mx-1"
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="search-addon"
+          id="search-input"
+          name="search-input"
+        />
+        <button
+          type="submit"
+          class="btn btn-outline-dark mx-1"
+          id="search-btn"
+          data-mdb-ripple-init
+        >
+          search
+        </button>
+      </form>
     </div>
 
-    <div class="table-videos overflow-scroll">
+    <div class="table-videos overflow-auto">
       <table class="table table-sm flex-row">
         <thead class="header-cell">
           <tr class="header-cell">
-            <th scope="col" class="header-cell">#</th>
-            <th scope="col" class="header-cell">video location</th>
+            <th scope="col" class="">#</th>
+            <th scope="col" class="header-cell-video-location">
+              video location
+            </th>
 
-            <th scope="col" class="header-cell">Product Code</th>
-            <th scope="col" class="header-cell">Product Description</th>
-            <th scope="col" class="header-cell">Factory</th>
-            <th scope="col" class="header-cell">Operation Code</th>
-            <th scope="col" class="header-cell">Operation Description</th>
-            <th scope="col" class="header-cell">Machine Number</th>
-            <th scope="col" class="header-cell">Machine Description</th>
-            <th scope="col" class="header-cell">Operator Code</th>
-            <th scope="col" class="header-cell">Operator Name</th>
+            <th scope="col" class="header-cell-product-code">Product Code</th>
+            <th scope="col" class="header-cell-product-description">
+              Product Description
+            </th>
+            <th scope="col" class="header-cell-factory">Factory</th>
+            <th scope="col" class="header-cell-operation-code">
+              Operation Code
+            </th>
+            <th scope="col" class="header-cell-operation-description">
+              Operation Description
+            </th>
+            <th scope="col" class="header-cell-machine-number">
+              Machine Number
+            </th>
+            <th scope="col" class="header-cell-machine-description">
+              Machine Description
+            </th>
+            <th scope="col" class="header-cell-operator-code">Operator Code</th>
+            <th scope="col" class="header-cell-operator-name">Operator Name</th>
             <!-- Add more columns for other form fields -->
           </tr>
         </thead>
@@ -78,24 +101,24 @@
       </table>
     </div>
   </div>
-  <script>
-    function openStream(url) {
-      // Show the video streamer container
-      //{% comment %} document.getElementById("video-streamer").style.display = "block"; {% endcomment %}
-      // Set the video source to the clicked video URL
-      //var convertedUrl = url.replace(/^.*?\/media/, "localhost:7000/media");
-      //console.log(convertedUrl);
-      //document.getElementById("video-player").src = convertedUrl;
-    }
-  </script>
-
-  <script>
-    var video_file = "{{item.video_file}}";
-    console.log(video_file);
-    if (video_file == "") {
-      document.getElementById("view-stream").style.display = "None";
-    }
-  </script>
-
-  {% endblock %}
 </div>
+<script>
+  function openStream(url) {
+    // Show the video streamer container
+    //{% comment %} document.getElementById("video-streamer").style.display = "block"; {% endcomment %}
+    // Set the video source to the clicked video URL
+    //var convertedUrl = url.replace(/^.*?\/media/, "localhost:7000/media");
+    //console.log(convertedUrl);
+    //document.getElementById("video-player").src = convertedUrl;
+  }
+</script>
+
+<script>
+  var video_file = "{{item.video_file}}";
+  console.log(video_file);
+  if (video_file == "") {
+    document.getElementById("view-stream").style.display = "None";
+  }
+</script>
+
+{% endblock %}

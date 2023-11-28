@@ -5,11 +5,52 @@
 }
 
 
-
 .header-cell{
     font-size: 13px; /* Adjust the font size as needed */
     min-width: 200px;
 }
+
+
+.header-cell-video-location{
+    font-size: 13px; /* Adjust the font size as needed */
+    min-width: 20px;
+
+}
+
+
+.header-cell-product-code{
+    font-size: 13px; /* Adjust the font size as needed */
+    min-width: 100px;
+  
+}
+
+.header-cell-product-description{
+    font-size: 13px; /* Adjust the font size as needed */
+    min-width: 350px;
+}
+
+.header-cell-factory{
+    font-size: 13px; /* Adjust the font size as needed */
+    min-width: 100px;
+
+}
+
+
+.header-cell-operation-code{
+    font-size: 13px; /* Adjust the font size as needed */
+    min-width: 60px;
+
+}
+.header-cell-operation-description{
+    font-size: 13px; /* Adjust the font size as needed */
+    min-width: 250px;
+
+}
+
+
+
+
+
 
 
 .table-videos{

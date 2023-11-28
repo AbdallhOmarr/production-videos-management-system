@@ -8,6 +8,9 @@ import os
 from .tasks import process_video_task
 
 from .models import Video
+from django.db.models import Q
+import re 
+
 
 # Create your views here.
 def home(request):
@@ -28,7 +31,7 @@ def upload_videos(request):
             os.makedirs(temp_dir, exist_ok=True)
             file_path = os.path.join(temp_dir, video_file.name)
             
-            
+
             with open(file_path, 'wb') as destination:
                 for chunk in video_file.chunks():
                     destination.write(chunk)
@@ -46,11 +49,40 @@ def upload_videos(request):
 
 
 def search_videos(request):
-    videos = Video.objects.all()
     
-    context = {
-        'videos': videos,
-    }
+    if request.method == 'POST':
+        search_param = request.POST.get('search-input')
+        if search_param == "" :
+            videos = Video.objects.all()
+            
+            context = {
+                'videos': videos,
+            }
+        else:
+            search_keywords = re.findall(r'\b\w+(?:\s*\w*\d\s*)*\b', search_param)
+            print(search_keywords)
+            results = []
+
+            for keyword in search_keywords:
+                query = Q(product_code__contains=keyword) | Q(product_description__contains=keyword) | Q(factory__contains=keyword) | Q(operation_code__contains=keyword) | Q(machine_number__contains=keyword) | Q(machine_description__contains=keyword) | Q(operator_code__contains=keyword) | Q(operator_name__contains=keyword) | Q(additional_details__contains=keyword)
+                
+                # Convert the QuerySet to a list and extend the results list
+                results.extend(list(Video.objects.filter(query)))
+
+            # Use set to remove duplicates based on the object's ID
+            unique_results = list(set(results))
+            print(unique_results)
+            context = {
+                'videos': unique_results,
+            }
+
+
+    else:
+        videos = Video.objects.all()
+        
+        context = {
+            'videos': videos,
+        }
 
     return render(request, 'search.html', context)
 

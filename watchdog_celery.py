@@ -13,7 +13,8 @@ def restart_celery():
     print("Restarting Celery...")
     os.system("taskkill /F /IM celery.exe")
     subprocess.Popen(["cmd", "/start", "/K", "python watchdog_celery.py"])  
-    # subprocess.Popen(["cmd", "/start", "/K", "celery -A base worker -l info -P eventlet"])  
+    subprocess.Popen(["cmd", "/start", "/K", "celery -A base worker -l info -P eventlet"])  
+
 class CodeChangeHandler(FileSystemEventHandler):
     def on_modified(self, event):
         if event.src_path.endswith(".py"):
@@ -31,7 +32,7 @@ if __name__ == "__main__":
     try:
         print("Watchdog is running. Press Ctrl+C to stop.")
         while True:
-            time.sleep(3)
+            time.sleep(10)
     except KeyboardInterrupt:
         observer.stop()
 

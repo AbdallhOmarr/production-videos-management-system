@@ -6,15 +6,20 @@ import cv2
 import logging
 from base.celery import app
 from .models import Video
-
+from datetime import datetime
+import imageio
 
 import os
 import re
 
+from datetime import datetime 
 
 logger = logging.getLogger(__name__)
 
-## tasks related functions ax
+def get_creation_date(file_path):
+    date_str = datetime.fromtimestamp(os.path.getctime(file_path))
+    formatted_date =  date_str.strftime("%Y-%m-%d_%H-%M-%S")
+    return formatted_date
 
 def clean_file_name(filename):
         # Check for invalid characters in filename
@@ -27,9 +32,8 @@ def clean_file_name(filename):
     logger.info(f"Filename cleaned '{cleaned_filename}'")
 
     return cleaned_filename    
-    
-## tasks 
 
+## tasks 
 @app.task
 def process_video_task(file_path, post_data,video_id):
     try:
@@ -41,7 +45,6 @@ def process_video_task(file_path, post_data,video_id):
         # Create the temporary directory if it doesn't exist
         os.makedirs(videos_dir, exist_ok=True)
 
-
         # Now, use the file_path to read the video using OpenCV
         cap = cv2.VideoCapture(file_path)
 
@@ -50,7 +53,7 @@ def process_video_task(file_path, post_data,video_id):
 
         # Define the codec and create a VideoWriter object
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')    
-        
+
         
         # List of keys you want to remove
         keys_to_remove = ['csrfmiddlewaretoken']
@@ -61,7 +64,7 @@ def process_video_task(file_path, post_data,video_id):
 
         # Initialize an empty list to store non-empty values
         valid_values = []
-
+        
         # Loop through the values and filter out empty, None, or ""
         for value in request_data.values():
             if value is not None and value != "":
@@ -69,6 +72,10 @@ def process_video_task(file_path, post_data,video_id):
                     value = value[0]
                 valid_values.append(value)
 
+        video_creation_date = get_creation_date(file_path)
+        logger.info(f"Video creation date: {video_creation_date}")
+        valid_values.append(video_creation_date)
+        
         # Create the file_name by joining the valid values with "_"
         file_name = "_".join(valid_values)   
         file_name = file_name + ".mp4"  
@@ -79,14 +86,14 @@ def process_video_task(file_path, post_data,video_id):
         out_path = os.path.join(videos_dir, file_name)
         logger.info(f"Video out path:{out_path}")
 
-        out = cv2.VideoWriter(out_path, fourcc, fps, (480, int(480 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT) / cap.get(cv2.CAP_PROP_FRAME_WIDTH))))
+        out = cv2.VideoWriter(out_path, fourcc, fps, (720, int(720 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT) / cap.get(cv2.CAP_PROP_FRAME_WIDTH))))
         # Read and resize each frame
         while True:
             ret, frame = cap.read()
             if not ret:
                 break
 
-            resized_frame = cv2.resize(frame, (480, int(480 * frame.shape[0] / frame.shape[1])))
+            resized_frame = cv2.resize(frame, (720, int(720 * frame.shape[0] / frame.shape[1])))
             out.write(resized_frame)
 
         # Release video capture and writer objects
