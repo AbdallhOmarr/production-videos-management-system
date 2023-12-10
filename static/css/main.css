@@ -53,10 +53,6 @@
 
 
 
-.table-videos{
-    min-height: 400px;
-}
-
 
 
 
@@ -65,3 +61,12 @@
     margin-top: 50px;
     max-width: 360px;
 }
+
+
+
+.table-fixed{
+    height: 15dvi;
+    width: auto;
+    overflow-y: auto;  
+}
+  

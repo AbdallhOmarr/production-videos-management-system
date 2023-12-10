@@ -54,7 +54,13 @@ def search_videos(request):
         search_param = request.POST.get('search-input')
         if search_param == "" :
             videos = Video.objects.all()
-            
+            for video_obj in videos:
+                vid_path = video_obj.video_file.name
+                split_vid_path = vid_path.split('\\')
+                video_obj.video_file.name = split_vid_path[-1]
+            print("splitted name")
+            print(video_obj.video_file.name)        
+
             context = {
                 'videos': videos,
             }
@@ -71,15 +77,30 @@ def search_videos(request):
 
             # Use set to remove duplicates based on the object's ID
             unique_results = list(set(results))
+            print("splitted name")
+
             print(unique_results)
+            for video_obj in unique_results:
+                vid_path = video_obj.video_file.name
+                split_vid_path = vid_path.split('\\')
+                video_obj.video_file.name = split_vid_path[-1]
+                print(video_obj.video_file.name)        
+
+            
             context = {
                 'videos': unique_results,
             }
+            print(f"context:{context['videos'][0].video_file.name}")
 
 
     else:
         videos = Video.objects.all()
-        
+        for video_obj in videos:
+            vid_path = video_obj.video_file.name
+            split_vid_path = vid_path.split('\\')
+            video_obj.video_file.name = split_vid_path[-1]
+            print("splitted name")
+            print(video_obj.video_file.name)        
         context = {
             'videos': videos,
         }

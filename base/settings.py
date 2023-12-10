@@ -123,6 +123,12 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+ADDITIONAL_MEDIA_URL = '/additional_media/'
+ADDITIONAL_MEDIA_ROOT = r'\\Qnap02\Process\VIDEOS\VIDEOS\web_interface'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

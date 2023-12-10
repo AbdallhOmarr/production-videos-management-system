@@ -30,3 +30,6 @@ app.conf.broker_connection_retry = True  # Disable the old setting
 app.conf.broker_connection_retry_on_startup = True  # Enable the new setting for startup retries
 
 
+
+app.conf.broker_connection_retry = True
+app.conf.broker_connection_retry_on_startup = True
