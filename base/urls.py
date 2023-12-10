@@ -24,3 +24,7 @@ urlpatterns = [
     ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
+# Serve additional media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.ADDITIONAL_MEDIA_URL, document_root=settings.ADDITIONAL_MEDIA_ROOT)

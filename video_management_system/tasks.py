@@ -52,8 +52,10 @@ def process_video_task(file_path, post_data,video_id):
         fps = cap.get(cv2.CAP_PROP_FPS)
 
         # Define the codec and create a VideoWriter object
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')    
-
+        fourcc = cv2.VideoWriter_fourcc(*'avc1')    
+        # # codecs
+        # XVID
+        # avc1
         
         # List of keys you want to remove
         keys_to_remove = ['csrfmiddlewaretoken']
@@ -86,14 +88,14 @@ def process_video_task(file_path, post_data,video_id):
         out_path = os.path.join(videos_dir, file_name)
         logger.info(f"Video out path:{out_path}")
 
-        out = cv2.VideoWriter(out_path, fourcc, fps, (720, int(720 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT) / cap.get(cv2.CAP_PROP_FRAME_WIDTH))))
+        out = cv2.VideoWriter(out_path, fourcc, fps, (640, int(640 * cap.get(cv2.CAP_PROP_FRAME_HEIGHT) / cap.get(cv2.CAP_PROP_FRAME_WIDTH))))
         # Read and resize each frame
         while True:
             ret, frame = cap.read()
             if not ret:
                 break
 
-            resized_frame = cv2.resize(frame, (720, int(720 * frame.shape[0] / frame.shape[1])))
+            resized_frame = cv2.resize(frame, (640, int(640 * frame.shape[0] / frame.shape[1])))
             out.write(resized_frame)
 
         # Release video capture and writer objects

@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}{% load static %} {% block content %}
 
 <div class="container">
   <div class="d-flex flex-column my-5">
@@ -29,9 +29,17 @@
         </button>
       </form>
     </div>
-
-    <div class="table-videos overflow-auto">
-      <table class="table table-sm flex-row">
+    <div class="video-stream align-self-center m-5">
+      <video
+        controls
+        width="720"
+        id="modalVideo"
+        src="additional_media/5221177010179_L-Roling Gear Spacers ( painted .)_Factory 3_SWL3_لحام بنطه_لحام بنطه الماسوره مع البلاتات_2023-12-06_13-07-592.mp4"
+        type="video/mp4"
+      ></video>
+    </div>
+    <div id="" class="">
+      <table class="table table-fixed overflow-y-scroll">
         <thead class="header-cell">
           <tr class="header-cell">
             <th scope="col" class="">#</th>
@@ -58,12 +66,17 @@
             </th>
             <th scope="col" class="header-cell-operator-code">Operator Code</th>
             <th scope="col" class="header-cell-operator-name">Operator Name</th>
+
             <!-- Add more columns for other form fields -->
           </tr>
         </thead>
-        <tbody>
+        <tbody class="tbody-class">
           {% for item in videos %}
-          <tr>
+          <tr
+            data-bs-toggle="modal"
+            data-bs-target="#videoModal"
+            data-video-src="{{ item.video_file }}"
+          >
             <th scope="row">{{ forloop.counter }}</th>
             <td>
               <a
@@ -102,22 +115,21 @@
     </div>
   </div>
 </div>
-<script>
-  function openStream(url) {
-    // Show the video streamer container
-    //{% comment %} document.getElementById("video-streamer").style.display = "block"; {% endcomment %}
-    // Set the video source to the clicked video URL
-    //var convertedUrl = url.replace(/^.*?\/media/, "localhost:7000/media");
-    //console.log(convertedUrl);
-    //document.getElementById("video-player").src = convertedUrl;
-  }
-</script>
 
 <script>
-  var video_file = "{{item.video_file}}";
-  console.log(video_file);
-  if (video_file == "") {
-    document.getElementById("view-stream").style.display = "None";
+  const modalVideo = document.getElementById("modalVideo");
+
+  function openStream(url, format = "mp4") {
+    try {
+      // Extract the file name without extension
+      // Set the video source with the format
+
+      const newSource = `additional_media/${url}`;
+      modalVideo.src = newSource;
+      console.log(modalVideo.src);
+    } catch (error) {
+      console.error("Error opening video:", error);
+    }
   }
 </script>
 

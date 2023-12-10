@@ -4,3 +4,5 @@ myenv
 *.mp4
 
 *.MOV
+
+node_modules
