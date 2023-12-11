@@ -26,7 +26,7 @@ app.conf.update(
 # Load task modules from all registered Django apps.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 # Celery configuration settings
-app.conf.broker_connection_retry = False  # Disable the old setting
+app.conf.broker_connection_retry = True  # Disable the old setting
 app.conf.broker_connection_retry_on_startup = True  # Enable the new setting for startup retries
 
 
