@@ -382,6 +382,28 @@ Video out path:\\Qnap02\Process\VIDEOS\VIDEOS\web_interface\6221177305666_Rail B
 Task Completed
 Task Completed
 Task started
+<<<<<<< HEAD
+Video creation date: 2023-12-10_12-12-16
+Filename cleaned 'tra_tra_tra_tra_tra_2023-12-10_12-12-16.mp4'
+Video out path:\\Qnap02\Process\VIDEOS\VIDEOS\web_interface\tra_tra_tra_tra_tra_2023-12-10_12-12-16.mp4
+Task Completed
+Task started
+Video creation date: 2023-12-10_13-46-11
+Filename cleaned 't1_t1_t1_t1_t1_2023-12-10_13-46-11.mp4'
+Video out path:\\Qnap02\Process\VIDEOS\VIDEOS\web_interface\t1_t1_t1_t1_t1_2023-12-10_13-46-11.mp4
+Task Completed
+Task started
+Video creation date: 2023-12-10_13-49-29
+Filename cleaned 'ff_ff_ff_ff_ff_ff_ff_2023-12-10_13-49-29.mp4'
+Video out path:\\Qnap02\Process\VIDEOS\VIDEOS\web_interface\ff_ff_ff_ff_ff_ff_ff_2023-12-10_13-49-29.mp4
+Task started
+Video creation date: 2023-12-10_13-49-29
+Filename cleaned 'ffff_fffff_ffff_ffff_ffff_2023-12-10_13-49-29.mp4'
+Video out path:\\Qnap02\Process\VIDEOS\VIDEOS\web_interface\ffff_fffff_ffff_ffff_ffff_2023-12-10_13-49-29.mp4
+Task Completed
+Task started
+Error processing video: [WinError 2] The system cannot find the file specified: 'D:\\Abdalla Omar\\repos\\video-management-system\\media\\temp\\MVI_1160.MOV'
+=======
 Video creation date: 2023-12-07_08-50-44
 Filename cleaned '6221177170325_Acrow Frame 2.0x1.0m_Factory 5_DRL5_ËÞÈ_301_ãËÞÇÈ ãÕäÚ 5_2023-12-07_08-50-44.mp4'
 Video out path:\\Qnap02\Process\VIDEOS\VIDEOS\web_interface\6221177170325_Acrow Frame 2.0x1.0m_Factory 5_DRL5_ËÞÈ_301_ãËÞÇÈ ãÕäÚ 5_2023-12-07_08-50-44.mp4
@@ -418,5 +440,6 @@ Task Completed
 Task Completed
 Task started
 Error processing video: [WinError 3] The system cannot find the path specified: 'D:\\Abdalla Omar\\repos\\video-management-system\\media\\temp\\VID_20231207_090818.mp4'
+>>>>>>> abdd1f42ef2da561841b5dd2dad442838d617c11
 processing completed but temp failed to delete
 Task Completed
