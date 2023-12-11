@@ -62,11 +62,24 @@
     max-width: 360px;
 }
 
-
+/* 
 
 .table-fixed{
     height: 15dvi;
     width: auto;
-    overflow-y: auto;  
-}
+} */
   
+
+/* Add this to your existing CSS file or create a new one */
+.table-fixed {
+    position: relative;
+    height: 300px; /* Set the desired height for the table */
+    overflow-y: auto;
+}
+
+.table-fixed thead {
+    position: sticky;
+    top: 0;
+    background-color: #fff; /* Set the desired background color for the header */
+    z-index: 1;
+}
