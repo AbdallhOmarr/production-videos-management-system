@@ -6,3 +6,5 @@ myenv
 *.MOV
 
 node_modules
+
+*.pyc
