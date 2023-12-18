@@ -7,8 +7,6 @@ import logging
 from base.celery import app
 from .models import Video
 from datetime import datetime
-import imageio
-
 import os
 import re
 

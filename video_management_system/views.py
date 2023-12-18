@@ -90,7 +90,6 @@ def search_videos(request):
             context = {
                 'videos': unique_results,
             }
-            print(f"context:{context['videos'][0].video_file.name}")
 
 
     else:
