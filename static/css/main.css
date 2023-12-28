@@ -83,3 +83,8 @@
     background-color: #fff; /* Set the desired background color for the header */
     z-index: 1;
 }
+
+
+.video-js{
+    width: 720px;
+}
