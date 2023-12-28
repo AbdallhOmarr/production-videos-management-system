@@ -11,7 +11,8 @@ from .models import Video
 from django.db.models import Q
 import re 
 
-
+import pandas as pd 
+import plotly.express as px
 # Create your views here.
 def home(request):
     return render(request,"home.html")
@@ -51,6 +52,7 @@ def upload_videos(request):
 def search_videos(request):
     
     if request.method == 'POST':
+
         search_param = request.POST.get('search-input')
         if search_param == "" :
             videos = Video.objects.all()
@@ -109,3 +111,56 @@ def search_videos(request):
 
 def about(request):
     return render(request,"about.html")
+
+
+
+def plotly_chart_view(request):
+    
+    data_objects = Video.objects.all()
+    data_list = list(data_objects.values())
+    
+    df = pd.DataFrame(data_list)
+
+    #group by 
+    grouped_df = df.groupby(by=['factory']).count()
+    
+    # Create a Plotly bar chart 
+    fig = px.bar(grouped_df, x=grouped_df.index, y=grouped_df['video_file'], labels={'x': 'Factory', 'y': 'No. of videos'})
+    # Update chart layout to add title and ylabel
+    fig.update_layout(
+        title='No. of videos by factory',
+        yaxis=dict(title='No. of videos'),
+        title_x = 0.5
+    )
+    plot_div = fig.to_html(full_html=False)
+
+
+    # group by item
+    no_of_unique_products = df['product_code'].nunique() #this number is 30 its int value
+    
+     # Create a Plotly bar chart 
+    fig = px.bar(x=['Product Codes'], y=[no_of_unique_products], labels={'x': '', 'y': ''})
+    
+    # Update chart layout to add title and ylabel
+    fig.update_layout(
+        title='Count of Unique Product Codes',
+        title_x = 0.5
+    )
+    plot_div2 = fig.to_html(full_html=False)
+
+
+    #group by 
+    grouped_df = df.groupby(by=['operation_code']).count()
+    
+    # Create a Plotly bar chart 
+    fig = px.bar(grouped_df, x=grouped_df.index, y=grouped_df['video_file'], labels={'x': 'operation_code', 'y': 'No. of videos'})
+    # Update chart layout to add title and ylabel
+    fig.update_layout(
+        title='No. of videos by operation code',
+        yaxis=dict(title='No. of videos'),
+        title_x = 0.5
+    )
+    plot_div3 = fig.to_html(full_html=False)
+
+    
+    return render(request, 'charts.html', {'plot_div': plot_div,'plot_div2': plot_div2,"plot_div3":plot_div3})
